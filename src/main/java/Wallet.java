@@ -104,4 +104,10 @@ public class Wallet {
         return uangLembaran.stream().mapToInt(Integer::intValue).sum() +
                 uangKoin.stream().mapToInt(Integer::intValue).sum();
     }
+
+    public void clearWallet() {
+        cards.clear();
+        uangKoin.clear();
+        uangLembaran.clear();
+    }
 }
