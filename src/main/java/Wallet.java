@@ -22,7 +22,7 @@ public class Wallet {
 
     public void setOwner(String owner) {
         if (owner == null || owner.trim().isEmpty()) {
-            return; // jika owner kosong atau null, akan diabaikan
+            return; // jika owner kosong atau null, diabaikan
         }
         this.owner = owner;
     }
