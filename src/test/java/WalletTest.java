@@ -2,9 +2,7 @@ import org.junit.jupiter.api.*;
 import java.util.List;
 
 class WalletTest {
-
     private static Wallet wallet;
-
     @BeforeAll
     static void setupClass() {
         System.out.print("Koneksi ke server....");
@@ -64,19 +62,25 @@ class WalletTest {
         wallet.addCard("NPWP");
         wallet.addCard("SIM");
 
+        System.out.println();
+        System.out.println("Kartu yang ada di dalam wallet saat ini: " + wallet.getCards());
         List<String> cards = wallet.getCards();
-        Assertions.assertTrue(cards.contains("NPWP"));
-        Assertions.assertTrue(cards.contains("SIM"));
+        Assertions.assertTrue(cards.contains("NPWP"), "Ada kartu NPWP di wallet");
+        Assertions.assertTrue(cards.contains("SIM"), "Ada kartu SIM di wallet");
 
         boolean isRemoved = wallet.removeCard("NPWP");
-        Assertions.assertTrue(isRemoved);
-        Assertions.assertFalse(wallet.getCards().contains("NPWP"));
+        System.out.println("Kartu yang ada di dalam wallet saat ini setelah NPWP dihapus: " + wallet.getCards());
+        Assertions.assertTrue(isRemoved, "Kartu NPWP telah dihapus dari wallet");
+        Assertions.assertFalse(wallet.getCards().contains("NPWP"), "Tidak ada kartu NPWP di wallet");
     }
 
     @Test
     public void testAddDuplicateCard() {
         wallet.addCard("KTP");
+        System.out.println();
+        System.out.println("Kartu yang ada di dalam wallet saat ini : " + wallet.getCards());
         wallet.addCard("KTP"); // KTP ditambahkan lagi
+        System.out.println("Kartu yang ada di dalam wallet saat ini setelah KTP ditambahkan lagi : " + wallet.getCards());
 
         List<String> cards = wallet.getCards();
         Assertions.assertEquals(2, cards.size(), "Kartu duplikat harus bisa ditambahkan ke dalam dompet");
@@ -160,7 +164,6 @@ class WalletTest {
         boolean isWithdrawn = wallet.withdrawMoney(600);
         Assertions.assertTrue(isWithdrawn);
         Assertions.assertEquals(11000, wallet.getTotalMoney(), "Total uang harus berkurang sesuai dengan jumlah yang ditarik");
-
     }
 
     @Test
